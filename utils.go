@@ -247,3 +247,13 @@ func DownloadImage(url string, imagePath string) (string, error) {
 	}
 	return "", errors.New("image Not Received")
 }
+
+func MergeMaps[K comparable, V any](maps ...map[K]V) map[K]V {
+	result := make(map[K]V)
+	for _, m := range maps {
+		for k, v := range m {
+			result[k] = v
+		}
+	}
+	return result
+}
