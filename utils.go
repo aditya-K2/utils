@@ -9,8 +9,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"syscall"
-	"unsafe"
 )
 
 var (
@@ -34,25 +32,25 @@ type winsize struct {
 	Ypixel uint16
 }
 
-func GetWidth() *winsize {
-	ws := &winsize{}
-	retCode, _, errno := syscall.Syscall(syscall.SYS_IOCTL,
-		uintptr(syscall.Stdin),
-		uintptr(syscall.TIOCGWINSZ),
-		uintptr(unsafe.Pointer(ws)))
+// func GetWidth() *winsize {
+// 	ws := &winsize{}
+// 	retCode, _, errno := syscall.Syscall(syscall.SYS_IOCTL,
+// 		uintptr(syscall.Stdin),
+// 		uintptr(syscall.TIOCGWINSZ),
+// 		uintptr(unsafe.Pointer(ws)))
 
-	if int(retCode) == -1 {
-		panic(errno)
-	}
-	return ws
-}
+// 	if int(retCode) == -1 {
+// 		panic(errno)
+// 	}
+// 	return ws
+// }
 
-func GetFontWidth() (float32, float32) {
-	g := GetWidth()
-	fw := float32(g.Xpixel) / float32(g.Col)
-	fh := float32(g.Ypixel) / float32(g.Row)
-	return fw, fh
-}
+// func GetFontWidth() (float32, float32) {
+// 	g := GetWidth()
+// 	fw := float32(g.Xpixel) / float32(g.Col)
+// 	fh := float32(g.Ypixel) / float32(g.Row)
+// 	return fw, fh
+// }
 
 func StrTime(e float64) string {
 	a := int(e)
